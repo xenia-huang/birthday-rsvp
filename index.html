@@ -55,6 +55,7 @@ button:hover{background:#506c7c}
 .counter input::-webkit-inner-spin-button,.counter input::-webkit-outer-spin-button{appearance:none;margin:0}
 textarea{display:block;resize:vertical}
 .optional{font-weight:400;color:var(--muted)}
+.calendar-link{justify-self:center;color:var(--ink);font-weight:700;text-underline-offset:3px}
 </style>
 </head>
 <body>
@@ -82,7 +83,7 @@ textarea{display:block;resize:vertical}
 <form method="post" action="https://docs.google.com/forms/d/e/1FAIpQLSdV9Qdshw0p2KqT3t2i-lHfTTLYiLc6KTwv3A_myK0FmAyAkQ/formResponse">
 <label>你的名字<input name="entry.1034310930" type="text" maxlength="80" autocomplete="name" required></label>
 <fieldset><legend>出席意願</legend><div class="choices">
-<label class="choice"><input type="radio" name="entry.1033559558" value="會，我會來！" required>會，我會來！</label>
+<label class="choice"><input type="radio" id="attend" name="entry.1033559558" value="會，我會來！" required>會，我會來！</label>
 <label class="choice"><input type="radio" id="decline" name="entry.1033559558" value="這次沒辦法來" required>這次沒辦法來</label>
 </div></fieldset>
 <div id="party-label">
@@ -98,6 +99,7 @@ textarea{display:block;resize:vertical}
 <textarea name="entry.331231204" rows="3" maxlength="1000"></textarea>
 </label>
 <button type="submit">送出回覆</button>
+<a id="calendar-link" class="calendar-link" href="https://calendar.google.com/calendar/r/eventedit?action=TEMPLATE&amp;text=Xenia%27s%20Birthday%20Party&amp;dates=20270301T070000Z%2F20270301T100000Z&amp;stz=Asia%2FTaipei&amp;etz=Asia%2FTaipei&amp;details=%E6%99%82%E9%96%93%E6%9A%AB%E5%AE%9A%E7%82%BA%E4%B8%8B%E5%8D%88%203%3A00%E2%80%936%3A00%EF%BC%8C%E7%A2%BA%E5%88%87%E6%99%82%E9%96%93%E5%92%8C%E5%9C%B0%E9%BB%9E%E4%B9%8B%E5%BE%8C%E5%86%8D%E9%80%9A%E7%9F%A5%E3%80%82%0Ahttps%3A%2F%2Fxenia-huang.github.io%2Fbirthday-rsvp%2F" target="_blank" rel="noopener" hidden>加入 Google 行事曆</a>
 </form>
 </section>
 </main>
@@ -105,6 +107,8 @@ textarea{display:block;resize:vertical}
 const form = document.querySelector('form');
 const guestName = form.elements.namedItem('entry.1034310930');
 const decide = document.querySelector('#decline');
+const attend = document.querySelector('#attend');
+const calendarLink = document.querySelector('#calendar-link');
 const party = document.querySelector('#party');
 const partyLabel = document.querySelector('#party-label');
 const decrease = document.querySelector('#decrease');
@@ -131,7 +135,13 @@ function syncCount() {
   if (decide.checked) party.value = '0';
   updateCounter();
 }
-form.addEventListener('change', syncCount);
+function syncRsvp() {
+  syncCount();
+  calendarLink.hidden = !attend.checked;
+  // Keep the calendar link available while Google Forms shows its receipt.
+  form.target = attend.checked ? '_blank' : '_self';
+}
+form.addEventListener('change', syncRsvp);
 guestName.addEventListener('input', () => guestName.setCustomValidity(''));
 form.addEventListener('submit', event => {
   guestName.value = guestName.value.trim();
@@ -141,7 +151,7 @@ form.addEventListener('submit', event => {
     guestName.reportValidity();
   }
 });
-window.addEventListener('pageshow', syncCount);
+window.addEventListener('pageshow', syncRsvp);
 </script>
 </body>
 </html>
