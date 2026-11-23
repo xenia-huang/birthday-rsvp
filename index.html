@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#697f8d">
+<title>Xenia's Birthday Party</title>
+<style>
+:root{color-scheme:light;--ink:#394b5a;--muted:#536674;--paper:#f4f5f3;--mist:#b7c9d3;--line:#a5b5bf}
+*{box-sizing:border-box}
+body{margin:0;background:#697f8d;color:var(--ink);font-family:system-ui,"Microsoft JhengHei",sans-serif;line-height:1.55}
+main{max-width:1100px;margin:auto;padding:clamp(20px,5vw,64px);display:grid;grid-template-columns:1.08fr 1fr;gap:clamp(20px,4vw,44px);align-items:center;min-height:100svh}
+.hero{position:relative;overflow:hidden;background:var(--mist);padding:clamp(24px,5vw,56px);border-radius:48% 48% 26px 26px / 27% 27% 26px 26px;text-align:center;box-shadow:0 9px 0 #354955}
+.kicker{font:italic 1.3rem Georgia,serif;margin:26px 0 12px}
+.year{font-weight:700;letter-spacing:.08em;font-size:clamp(1.15rem,3vw,1.45rem)}
+h1{font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.2;margin:24px 0 12px}
+.spark{position:absolute;font-size:2.4rem;color:#eff4f5;line-height:1}
+.spark.left{top:29%;left:10%}.spark.right{top:20%;right:13%}.spark.bottom{bottom:23%;right:9%;font-size:1.6rem}
+.details{list-style:none;padding:14px 0 0;margin:22px 0 0;border-top:1px dashed #6e8796;display:grid;gap:5px;font-weight:650}
+.card{background:var(--paper);border-radius:26px;padding:clamp(24px,4.5vw,48px);box-shadow:0 9px 0 #354955}
+h2{font-size:2rem;margin:0;line-height:1.2}.intro{color:var(--muted);margin:10px 0 26px}
+form{display:grid;gap:20px}label,legend{font-weight:700}input,button,textarea{font:inherit}
+input[type=text],input[type=number],textarea{width:100%;margin-top:6px;border:1px solid var(--line);border-radius:11px;padding:12px 14px;background:white;color:var(--ink)}
+fieldset{min-width:0;margin:0;padding:0;border:0}legend{margin-bottom:7px}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.choice{display:flex;align-items:center;gap:8px;min-height:53px;border:1px solid var(--line);border-radius:11px;padding:9px 10px;font-size:.95rem;cursor:pointer;background:white}
+.choice:has(:checked){background:#e0ebef;border-color:#587788}
+input[type=radio]{accent-color:#476879;width:17px;height:17px;margin:0;flex:none}
+small{display:block;font-size:.875rem;color:var(--muted);margin-top:4px}
+button{border:0;border-radius:999px;background:var(--ink);color:white;font-weight:750;padding:13px 18px;cursor:pointer}
+button:hover{background:#506c7c}
+:focus-visible{outline:3px solid #3c687b;outline-offset:3px}
+[hidden]{display:none!important}
+@media(max-width:740px){main{max-width:520px;grid-template-columns:1fr}.hero{padding-top:14px}}
+@media(max-width:350px){.choices{grid-template-columns:1fr}}
+.hero{isolation:isolate}
+.kicker{margin-bottom:8px}
+.celebration{position:relative;width:min(100%,330px);height:136px;margin:5px auto 0}
+.cake{position:absolute;left:50%;bottom:13px;width:128px;height:97px;transform:translateX(-50%)}
+.tier{position:absolute;left:50%;transform:translateX(-50%);border:2px solid #76565c;border-radius:9px 9px 5px 5px;background:repeating-linear-gradient(to bottom,#fff4df 0 11px,#d89a9f 11px 15px,#f2c7c3 15px 24px)}
+.tier.lower{width:117px;height:36px;bottom:6px}.tier.upper{width:76px;height:27px;bottom:41px}
+.cake:after{content:"";position:absolute;bottom:1px;left:0;width:100%;height:5px;border-radius:8px;background:#76565c}
+.candle{position:absolute;bottom:67px;width:6px;height:16px;border:1px solid #76565c;border-radius:2px;background:repeating-linear-gradient(135deg,#fff5e4 0 3px,#b87581 3px 6px)}
+.candle:before{content:"";position:absolute;width:7px;height:10px;left:-2px;bottom:17px;border-radius:80% 20% 55% 55%;transform:rotate(-35deg);background:#fcf3d6;border:1px solid #b39970}
+.candle:nth-child(1){left:43px}.candle:nth-child(2){left:61px;height:21px}.candle:nth-child(3){left:79px}
+.doodle{position:absolute;line-height:1;font-size:clamp(1.35rem,5vw,2.3rem);}
+.gift{left:5%;bottom:15px;transform:rotate(-15deg)}.toast{right:3%;bottom:30px;transform:rotate(13deg)}.beer{right:16%;top:0;transform:rotate(15deg)}
+.celebration:after{content:"·  ✦  ·";position:absolute;left:50%;bottom:-3px;transform:translateX(-50%);font-size:.8rem;letter-spacing:.22em;color:#526f80}
+.hero h1{margin:12px 0 9px;font-size:clamp(1.75rem, 6vw, 3.25rem);letter-spacing:-.035em}
+@media(max-width:390px){.gift{left:0}.toast{right:0}.beer{right:8%}}
+.counter{display:grid;grid-template-columns:48px minmax(0,1fr) 48px;gap:8px;margin-top:6px}
+.counter button{padding:0;border-radius:11px;font-size:1.3rem;min-height:48px}
+.counter button:disabled{background:#dce5e8;color:#536674;cursor:default}
+.counter input{margin:0;text-align:center;appearance:textfield}
+.counter input::-webkit-inner-spin-button,.counter input::-webkit-outer-spin-button{appearance:none;margin:0}
+textarea{display:block;resize:vertical}
+.optional{font-weight:400;color:var(--muted)}
+</style>
+</head>
+<body>
+<main>
+<section class="hero" aria-labelledby="party-title">
+<span aria-hidden="true" class="spark left">✦</span><span aria-hidden="true" class="spark right">✧</span><span aria-hidden="true" class="spark bottom">✦</span>
+<p class="kicker" lang="en">You’re invited!</p>
+<h1 id="party-title" lang="en">Xenia's Birthday Party</h1>
+<p class="year"><time datetime="2027-03-01">2027.03.01（一）</time></p>
+<div class="celebration" aria-hidden="true">
+<span class="doodle gift">🎁</span><span class="doodle toast">🥂</span><span class="doodle beer">🍺</span>
+<div class="cake">
+<span class="candle"></span><span class="candle"></span><span class="candle"></span>
+<span class="tier upper"></span><span class="tier lower"></span>
+</div>
+</div>
+
+<p>趁連假一起吃蛋糕、聊聊天吧～</p>
+<ul class="details"><li>暫定下午 3:00–6:00</li><li>確切時間和地點之後再通知</li></ul>
+</section>
+<section class="card" aria-labelledby="rsvp">
+<h2 id="rsvp">你會來嗎？</h2>
+<p class="intro">回覆一下，讓我先抓個人數吧！</p>
+<form method="post" action="https://docs.google.com/forms/d/e/1FAIpQLSdV9Qdshw0p2KqT3t2i-lHfTTLYiLc6KTwv3A_myK0FmAyAkQ/formResponse">
+<label>你的名字<input name="entry.1034310930" type="text" maxlength="80" autocomplete="name" required></label>
+<fieldset><legend>出席意願</legend><div class="choices">
+<label class="choice"><input type="radio" name="entry.1033559558" value="會，我會來！" required>會，我會來！</label>
+<label class="choice"><input type="radio" id="decline" name="entry.1033559558" value="這次沒辦法來" required>這次沒辦法來</label>
+</div></fieldset>
+<div id="party-label">
+<label for="party">出席人數</label>
+<div class="counter">
+<button type="button" id="decrease" aria-label="減少一位">−</button>
+<input id="party" name="entry.21144617" type="number" inputmode="numeric" min="1" max="999" step="1" value="1" aria-describedby="party-help" required>
+<button type="button" id="increase" aria-label="增加一位">＋</button>
+</div>
+<small id="party-help">包含你自己。</small>
+</div>
+<label>給我的話 <span class="optional">（選填）</span>
+<textarea name="entry.331231204" rows="3" maxlength="1000"></textarea>
+</label>
+<button type="submit">送出回覆</button>
+</form>
+</section>
+</main>
+<script>
+const form = document.querySelector('form');
+const guestName = form.elements.namedItem('entry.1034310930');
+const decide = document.querySelector('#decline');
+const party = document.querySelector('#party');
+const partyLabel = document.querySelector('#party-label');
+const decrease = document.querySelector('#decrease');
+const increase = document.querySelector('#increase');
+function updateCounter() {
+  decrease.disabled = Number(party.value) <= Number(party.min);
+  increase.disabled = Number(party.value) >= Number(party.max);
+}
+decrease.addEventListener('click', () => {
+  party.stepDown();
+  updateCounter();
+});
+increase.addEventListener('click', () => {
+  party.stepUp();
+  updateCounter();
+});
+party.addEventListener('input', updateCounter);
+let previousCount = party.value;
+function syncCount() {
+  if (decide.checked && !partyLabel.hidden) previousCount = party.value;
+  if (!decide.checked && partyLabel.hidden) party.value = previousCount || '1';
+  partyLabel.hidden = decide.checked;
+  party.min = decide.checked ? '0' : '1';
+  if (decide.checked) party.value = '0';
+  updateCounter();
+}
+form.addEventListener('change', syncCount);
+guestName.addEventListener('input', () => guestName.setCustomValidity(''));
+form.addEventListener('submit', event => {
+  guestName.value = guestName.value.trim();
+  if (!guestName.value) {
+    event.preventDefault();
+    guestName.setCustomValidity('請輸入你的名字。');
+    guestName.reportValidity();
+  }
+});
+window.addEventListener('pageshow', syncCount);
+</script>
+</body>
+</html>
